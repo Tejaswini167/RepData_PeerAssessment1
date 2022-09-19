@@ -19,8 +19,7 @@ output:
 9.All of the R code needed to reproduce the results (numbers, plots, etc.) in the report
 
 
-##1.
-##Code for reading in the dataset and/or processing the data
+##1.Code for reading in the dataset and/or processing the data
 ```{r, echo = TRUE}
 setwd("C:/Users/Shengyu Chen/Dropbox/Academics/Coursera/Data Science Specialization/Reproducible Research/Course Project 1")
 activity<-read.csv("activity.csv")
@@ -40,8 +39,7 @@ activity$date<-ymd(activity$date)
 length(unique(activity$date))
 ```
 
-##2.
-##Histogram of the total number of steps taken each day
+##2.Histogram of the total number of steps taken each day
 ```{r, echo = TRUE}
 library(ggplot2)
 Q2<-data.frame(tapply(activity$steps,activity$date,sum,na.rm=TRUE))
@@ -60,8 +58,7 @@ qplot(Q2$`Total Steps`,geom="histogram",xlab="Total Steps",ylab="Counts",main="T
 dev.off()
 ```
 
-##3.
-##Mean and median number of steps taken each day
+##3.Mean and median number of steps taken each day
 
 ```{r, echo = TRUE}
 library(dplyr)
@@ -75,8 +72,7 @@ Q3$median<-temp$`Median Steps`
 Q3<-Q3 %>% select(date,`Mean Steps`,median)
 ```
 
-##4.
-##Time series plot of the average number of steps taken
+##4.Time series plot of the average number of steps taken
 ```{r, echo = TRUE}
 Q4<-Q3
 Q4$date<-as.Date(Q4$date,format="%Y-%m-%d")
@@ -86,8 +82,7 @@ ggplot(Q4,aes(x=Q4$date,y=Q4$`Mean Steps`))+geom_bar(stat="identity")+scale_x_da
 dev.off()
 ```
 
-##5.
-##The 5-minute interval that, on average, contains the maximum number of steps
+##5.The 5-minute interval that, on average, contains the maximum number of steps
 
 ```{r, echo = TRUE}
 #This is assuming that the words on average means averaging steps by date and interval
@@ -96,8 +91,8 @@ Q5<-aggregate(data=activity,steps~date+interval,FUN="mean")
 Q5<-aggregate(data=Q5,steps~interval,FUN="max")
 ```
 
-##6.
-Code to describe and show a strategy for imputing missing data
+##6.Code to describe and show a strategy for imputing missing data
+
 There are multiple strategies to deal with multiple value imputations.
 The common strategies include:
 1. Constant value imputations
@@ -155,8 +150,7 @@ names(Q6.6)[[4]]<-"Steps"
 ```
 
 
-##7.
-Histogram of the total number of steps taken each day after missing values are imputed
+##7.Histogram of the total number of steps taken each day after missing values are imputed
 
 ```{r, echo = TRUE}
 png("plot7.png")
@@ -167,8 +161,7 @@ qplot(Q6.6$Steps,geom="histogram",main="Total steps taken histogram post imputat
 ```
 
 
-##8.
-Panel plot comparing the average number of steps taken per 5-minute interval across weekdays and weekends
+##8.Panel plot comparing the average number of steps taken per 5-minute interval across weekdays and weekends
 
 ```{r, echo = TRUE}
 Q8<-Q6.6
